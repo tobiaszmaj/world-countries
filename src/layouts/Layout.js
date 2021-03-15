@@ -9,9 +9,9 @@ const Wrapper = styled.div`
   margin: 0 auto;
   width: 100%;
   max-width: 1440px;
-  padding: 60px 20px 0;
+  padding: 60px 20px 30px;
   ${({ theme }) => theme.mq.xs} {
-    padding: 80px 20px 0;
+    padding: 80px 20px 40px;
   }
 `;
 

@@ -14,6 +14,7 @@ const Wrapper = styled.nav`
   background-color: ${({ theme }) => theme.element};
   box-shadow: 0 3px 10px -8px rgba(0, 0, 0, 0.4);
   transition: 0.3s;
+  z-index: 20;
   ${({ theme }) => theme.mq.xs} {
     height: 80px;
   }

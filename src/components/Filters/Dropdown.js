@@ -45,7 +45,7 @@ const Options = styled.ul`
   font-size: ${({ theme }) => theme.fontSize.s};
   border-radius: 8px;
   box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.25);
-  transition: 0.15s;
+  transition: 0.3s;
   opacity: ${({ isVisible }) => (isVisible ? '1' : '0')};
   visibility: ${({ isVisible }) => (isVisible ? 'visible' : 'hidden')};
 `;
@@ -60,28 +60,28 @@ const Option = styled.li`
 `;
 
 const Dropdown = () => {
-    const [areOptionsVisible, setOptionsVisibility] = useState(false);
-    const { isDarkTheme } = useTheme();
+  const [areOptionsVisible, setOptionsVisibility] = useState(false);
+  const { isDarkTheme } = useTheme();
 
-    const toggleOptionsVisibility = () => {
-        setOptionsVisibility(!areOptionsVisible);
-    };
+  const toggleOptionsVisibility = () => {
+    setOptionsVisibility(!areOptionsVisible);
+  };
 
-    return (
-        <Wrapper>
-            <Select onClick={toggleOptionsVisibility}>
-                <Name>Filter by Region</Name>
-                <Icon isWhite={isDarkTheme} />
-            </Select>
-            <Options isVisible={areOptionsVisible}>
-                <Option>Africa</Option>
-                <Option>America</Option>
-                <Option>Asia</Option>
-                <Option>Europe</Option>
-                <Option>Oceania</Option>
-            </Options>
-        </Wrapper>
-    );
+  return (
+    <Wrapper>
+      <Select onClick={toggleOptionsVisibility}>
+        <Name>Filter by Region</Name>
+        <Icon isWhite={isDarkTheme} />
+      </Select>
+      <Options isVisible={areOptionsVisible}>
+        <Option>Africa</Option>
+        <Option>America</Option>
+        <Option>Asia</Option>
+        <Option>Europe</Option>
+        <Option>Oceania</Option>
+      </Options>
+    </Wrapper>
+  );
 };
 
 export default Dropdown;
