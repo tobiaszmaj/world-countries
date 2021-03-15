@@ -9,7 +9,7 @@ const breakpoints = {
 const colors = {
   white: 'hsl(0, 0%, 100%)',
   dark: 'hsl(200, 15%, 8%)',
-  blue: 'hsl(201, 100%, 58%)',
+  blue: 'hsl(201, 100%, 81%)',
   dark100: 'hsl(230, 17%, 14%)',
   dark200: 'hsl(228, 28%, 20%)',
   gray: 'hsl(0, 0%, 52%)',
@@ -26,7 +26,7 @@ export const lightTheme = {
 export const darkTheme = {
   background: colors.dark100,
   element: colors.dark200,
-  input: colors.dark200,
+  input: colors.gray,
   text: colors.white,
 };
 
@@ -43,8 +43,8 @@ export const baseTheme = {
     xs: '1.2rem',
     s: '1.4rem',
     m: '1.6rem',
-    lg: '2.4rem',
-    xl: '3.2rem',
+    lg: '2rem',
+    xl: '2.4rem',
   },
   mq: Object.keys(breakpoints).reduce((acc, breakpoint) => {
     acc[breakpoint] = `@media (min-width: ${breakpoints[breakpoint]}px)`;

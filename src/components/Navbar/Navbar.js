@@ -8,12 +8,15 @@ const Wrapper = styled.nav`
   top: 0;
   left: 0;
   right: 0;
-  height: 80px;
+  height: 60px;
   display: flex;
   align-items: center;
   background-color: ${({ theme }) => theme.element};
   box-shadow: 0 3px 10px -8px rgba(0, 0, 0, 0.4);
   transition: 0.3s;
+  ${({ theme }) => theme.mq.xs} {
+    height: 80px;
+  }
 `;
 
 const InnerWrapper = styled.div`
@@ -23,6 +26,9 @@ const InnerWrapper = styled.div`
   padding: 0 10px;
   display: flex;
   justify-content: space-between;
+  ${({ theme }) => theme.mq.md} {
+    padding: 0 20px;
+  }
 `;
 
 const TitleWrapper = styled.div`
@@ -31,15 +37,18 @@ const TitleWrapper = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: ${({ theme }) => theme.fontSize.lg};
+font-size: ${({ theme }) => theme.fontSize.m};
   font-weight: ${({ theme }) => theme.bold};
   font-family: ${({ theme }) => theme.fonts.subFont};
+  ${({ theme }) => theme.mq.xs} {
+    font-size: ${({ theme }) => theme.fontSize.xl};
+  }
 `;
 
 const DarkModeButton = styled.button`
   display: flex;
   align-items: center;
-  padding: 8px 20px;
+  padding: 8px 10px;
   border-radius: 8px;
   transition: 0.3s;
   background-color: transparent;
@@ -48,7 +57,10 @@ const DarkModeButton = styled.button`
   color: ${({ theme }) => theme.text};
   cursor: pointer;
   &:hover {
-    border-color: ${({ theme }) => theme.text};
+    border-color: ${({ theme }) => theme.blue};
+  }
+  ${({ theme }) => theme.mq.xs} {
+    padding: 8px 20px;
   }
 `;
 
@@ -58,32 +70,35 @@ const Icon = styled.i`
   height: 20px;
   background: url(${moonIcon}) no-repeat center;
   background-size: 100%;
-  margin-right: 10px;
   transition: 0.3s;
   filter: ${({ isWhite }) => (isWhite ? 'invert(1)' : 'invert(0)')};
 `;
 
 const Name = styled.h3`
-  font-size: ${({ theme }) => theme.fontSize.m};
+font-size: ${({ theme }) => theme.fontSize.s};
   font-weight: ${({ theme }) => theme.semiBold};
   font-family: ${({ theme }) => theme.fonts.mainFont};
+  margin-left: 8px;
+  ${({ theme }) => theme.mq.xs} {
+    font-size: ${({ theme }) => theme.fontSize.m};
+  }
 `;
 
 const Navbar = () => {
-    const { isDarkTheme, toggleTheme } = useTheme();
-    return (
-        <Wrapper>
-            <InnerWrapper>
-                <TitleWrapper>
-                    <Title>World countries</Title>
-                </TitleWrapper>
-                <DarkModeButton onClick={toggleTheme}>
-                    <Icon isWhite={isDarkTheme} />
-                    <Name>Dark Mode</Name>
-                </DarkModeButton>
-            </InnerWrapper>
-        </Wrapper>
-    );
+  const { isDarkTheme, toggleTheme } = useTheme();
+  return (
+    <Wrapper>
+      <InnerWrapper>
+        <TitleWrapper>
+          <Title>World countries</Title>
+        </TitleWrapper>
+        <DarkModeButton onClick={toggleTheme}>
+          <Icon isWhite={isDarkTheme} />
+          <Name>Dark Mode</Name>
+        </DarkModeButton>
+      </InnerWrapper>
+    </Wrapper>
+  );
 };
 
 export default Navbar;
