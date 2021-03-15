@@ -31,9 +31,11 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
+    color: ${({ theme }) => theme.text};
     background: ${({ theme }) => theme.background};
     font-family: ${({ theme }) => theme.fonts.mainFont};
     font-size: 1.6rem;
+    transition: 0.3s;
   }
 `;
 

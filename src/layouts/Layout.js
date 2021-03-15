@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyle from 'theme/GlobalStyle';
+import Navbar from 'components/Navbar/Navbar';
 import useTheme from 'hooks/useTheme';
 
 const Wrapper = styled.div`
@@ -15,13 +16,14 @@ const Layout = ({ children }) => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
+      <Navbar />
       <Wrapper>{children}</Wrapper>
     </ThemeProvider>
   );
 };
 
 Layout.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.arrayOf(PropTypes.element).isRequired,
 };
 
 export default Layout;

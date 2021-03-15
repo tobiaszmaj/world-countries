@@ -18,7 +18,7 @@ const useTheme = () => {
     ? { ...baseTheme, ...darkTheme }
     : { ...baseTheme, ...lightTheme };
 
-  return { theme, toggleTheme };
+  return { theme, toggleTheme, isDarkTheme };
 };
 
 export default useTheme;
