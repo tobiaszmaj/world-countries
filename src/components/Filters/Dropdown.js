@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import dropIcon from 'icons/arrow-down.svg';
 import useTheme from 'hooks/useTheme';
+import useOutsideClick from 'hooks/useOutsideClick';
 
 const Wrapper = styled.div`
   position: relative;
@@ -21,6 +22,9 @@ const Select = styled.div`
   transition: 0.3s;
   background-color: ${({ theme }) => theme.element};
   cursor: pointer;
+  border: 2px solid;
+  border-color: ${({ isActive, theme }) =>
+    isActive ? theme.blue : 'transparent'};
 `;
 
 const Name = styled.span`
@@ -62,18 +66,26 @@ const Option = styled.li`
 const Dropdown = () => {
   const [areOptionsVisible, setOptionsVisibility] = useState(false);
   const { isDarkTheme } = useTheme();
+  const selectRef = useRef(null);
+  const optionsRef = useRef(null);
 
   const toggleOptionsVisibility = () => {
     setOptionsVisibility(!areOptionsVisible);
   };
 
+  useOutsideClick(optionsRef, setOptionsVisibility, selectRef);
+
   return (
     <Wrapper>
-      <Select onClick={toggleOptionsVisibility}>
+      <Select
+        isActive={areOptionsVisible}
+        ref={selectRef}
+        onClick={toggleOptionsVisibility}
+      >
         <Name>Filter by Region</Name>
         <Icon isWhite={isDarkTheme} />
       </Select>
-      <Options isVisible={areOptionsVisible}>
+      <Options ref={optionsRef} isVisible={areOptionsVisible}>
         <Option>Africa</Option>
         <Option>America</Option>
         <Option>Asia</Option>

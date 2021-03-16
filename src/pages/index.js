@@ -19,8 +19,22 @@ const FiltersWrapper = styled.div`
 
 const Content = styled.main`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 50px;
+  grid-template-columns: repeat(1, 1fr);
+  justify-items: center;
+  gap: 20px;
+  ${({ theme }) => theme.mq.s} {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  ${({ theme }) => theme.mq.md} {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  ${({ theme }) => theme.mq.lg} {
+    gap: 40px;
+  }
+  ${({ theme }) => theme.mq.xl} {
+    gap: 50px;
+    grid-template-columns: repeat(4, 1fr);
+  }
 `;
 
 const IndexPage = ({
@@ -35,8 +49,10 @@ const IndexPage = ({
         <Filters />
       </FiltersWrapper>
       <Content>
-        {nodes.map(({ name, capital, flag, region, population }) => (
+        {nodes.map(({ id, name, capital, flag, region, population }) => (
           <Card
+            id={id}
+            key={id}
             countryName={name}
             capital={capital}
             flag={flag}
@@ -57,8 +73,9 @@ IndexPage.propTypes = {
 
 export const query = graphql`
   query {
-    allInternalCountries(limit: 8) {
+    allInternalCountries(limit: 24) {
       nodes {
+        id
         name
         capital
         flag

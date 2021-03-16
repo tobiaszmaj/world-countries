@@ -3,7 +3,7 @@ const breakpoints = {
   s: 576,
   md: 768,
   lg: 992,
-  xl: 1440,
+  xl: 1200,
 };
 
 const colors = {
@@ -33,7 +33,7 @@ export const darkTheme = {
 export const baseTheme = {
   fonts: {
     mainFont: `'Comfortaa', cursive`,
-    subFont: `'PT Sans', sans-serif`,
+    subFont: `'Montserrat', sans-serif`,
   },
   light: 300,
   semiBold: 500,

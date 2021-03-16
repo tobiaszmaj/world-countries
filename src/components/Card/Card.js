@@ -1,18 +1,26 @@
 import React from 'react';
+import { Link } from 'gatsby';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-const Wrapper = styled.div`
+const Wrapper = styled(Link)`
   width: 100%;
-  max-width: 360px;
+  max-width: 320px;
   border-radius: 8px;
   overflow: hidden;
   background-color: ${({ theme }) => theme.element};
+  transition: 0.3s;
+  box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.25);
+  border: 2px solid transparent;
+  color: ${({ theme }) => theme.text};
+  text-decoration: none;
+  &:hover {
+    border-color: ${({ theme }) => theme.blue};
+  }
 `;
 
 const ImageWrapper = styled.div`
   width: 100%;
-  height: 200px;
 `;
 
 const Image = styled.img`
@@ -22,12 +30,13 @@ const Image = styled.img`
 `;
 
 const Content = styled.div`
-  padding: 20px;
+padding: 30px 20px;
 `;
 
 const Title = styled.h3`
-  margin: 10px 0;
-  font-size: ${({ theme }) => theme.lg};
+margin-bottom: 20px;
+font-size: ${({ theme }) => theme.fontSize.lg};
+font-weight: ${({ theme }) => theme.semiBold};
 `;
 
 const Detail = styled.div`
@@ -39,32 +48,35 @@ const Value = styled.span`
   font-weight: ${({ theme }) => theme.light};
 `;
 
-const Card = ({ countryName, population, region, capital, flag }) => (
-    <Wrapper>
-        <ImageWrapper>
-            <Image src={flag} alt={countryName} />
-        </ImageWrapper>
-        <Content>
-            <Title>{countryName}</Title>
-            <Detail>
-                Population: <Value>{population}</Value>
-            </Detail>
-            <Detail>
-                Region: <Value>{region}</Value>
-            </Detail>
-            <Detail>
-                Capital: <Value>{capital}</Value>
-            </Detail>
-        </Content>
+const Card = ({ id, countryName, population, region, capital, flag }) => {
+  return (
+    <Wrapper to={id}>
+      <ImageWrapper>
+        <Image src={flag} alt={countryName} />
+      </ImageWrapper>
+      <Content>
+        <Title>{countryName}</Title>
+        <Detail>
+          Population: <Value>{population}</Value>
+        </Detail>
+        <Detail>
+          Region: <Value>{region}</Value>
+        </Detail>
+        <Detail>
+          Capital: <Value>{capital}</Value>
+        </Detail>
+      </Content>
     </Wrapper>
-);
+  );
+};
 
 Card.propTypes = {
-    countryName: PropTypes.string.isRequired,
-    population: PropTypes.string.isRequired,
-    region: PropTypes.string.isRequired,
-    capital: PropTypes.string.isRequired,
-    flag: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  countryName: PropTypes.string.isRequired,
+  population: PropTypes.number.isRequired,
+  region: PropTypes.string.isRequired,
+  capital: PropTypes.string.isRequired,
+  flag: PropTypes.string.isRequired,
 };
 
 export default Card;
