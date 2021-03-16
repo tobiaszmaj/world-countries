@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { graphql } from 'gatsby';
 import styled from 'styled-components';
 import SEO from 'components/SEO/SEO';
@@ -6,6 +6,9 @@ import Layout from 'layouts/Layout';
 import Filters from 'components/Filters/Filters';
 import PropTypes from 'prop-types';
 import Card from 'components/Card/Card';
+import EmptyState from 'components/EmptyState/EmptyState';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const FiltersWrapper = styled.div`
   margin: 25px 0;
@@ -37,31 +40,124 @@ const Content = styled.main`
   }
 `;
 
+const COUNTRIES_PER_SCROLL = 16;
+
 const IndexPage = ({
   data: {
     allInternalCountries: { nodes },
   },
 }) => {
+  const [countries, setCountries] = useState({
+    allCountries: nodes,
+    countriesToShow: nodes.slice(0, COUNTRIES_PER_SCROLL),
+    selectedRegion: '',
+    query: '',
+  });
+
+  const applyFilters = (key, value) => {
+    const { query, selectedRegion } = countries;
+
+    const filtered = nodes.filter(({ name, region }) => {
+      let selectFilters = true;
+      let queryFilters = true;
+      if (key === 'query') {
+        selectFilters =
+          selectedRegion === 'All' || selectedRegion === ''
+            ? nodes
+            : region === selectedRegion;
+        queryFilters = name.toLowerCase().includes(value.toLowerCase());
+      }
+      if (key === 'selectedRegion') {
+        selectFilters = value === 'All' ? nodes : value === region;
+        queryFilters = name.toLowerCase().includes(query.toLowerCase());
+      }
+
+      const newCountries = queryFilters && selectFilters;
+      return newCountries;
+    });
+
+    setCountries({
+      ...countries,
+      [key]: value,
+      allCountries: filtered,
+      countriesToShow: filtered.slice(0, COUNTRIES_PER_SCROLL),
+    });
+  };
+
+  const handleInputChange = e => {
+    applyFilters('query', e.target.value);
+  };
+
+  const handleSelect = selectedRegion => {
+    applyFilters('selectedRegion', selectedRegion);
+  };
+
+  const handleScroll = () => {
+    const { countriesToShow, allCountries } = countries;
+    const start = countriesToShow.length;
+    const end = countriesToShow.length + COUNTRIES_PER_SCROLL;
+    setCountries({
+      ...countries,
+      countriesToShow: [...countriesToShow, ...allCountries.slice(start, end)],
+    });
+  };
+
+  const allRegions = nodes
+    .map(({ region }) => region)
+    .filter(region => region)
+    .sort();
+  const regions = ['All', ...[...new Set(allRegions)]];
+
+  const { selectedRegion, countriesToShow, allCountries } = countries;
+
   return (
-    <Layout>
-      <SEO title="Home" />
-      <FiltersWrapper>
-        <Filters />
-      </FiltersWrapper>
-      <Content>
-        {nodes.map(({ id, name, capital, flag, region, population }) => (
-          <Card
-            id={id}
-            key={id}
-            countryName={name}
-            capital={capital}
-            flag={flag}
-            region={region}
-            population={population}
+    <InfiniteScroll
+      dataLength={countriesToShow.length}
+      next={handleScroll}
+      hasMore={allCountries.length >= countriesToShow.length}
+    >
+      <Layout>
+        <SEO title="Home" />
+        <FiltersWrapper>
+          <Filters
+            selectedRegion={selectedRegion}
+            regions={regions}
+            handleSelect={handleSelect}
+            handleInput={handleInputChange}
           />
-        ))}
-      </Content>
-    </Layout>
+        </FiltersWrapper>
+        {countriesToShow.length === 0 ? (
+          <EmptyState />
+        ) : (
+          <Content>
+            <AnimatePresence>
+              {countriesToShow.map(
+                ({ id, name, capital, flag, region, population }) => (
+                  <motion.div
+                    key={id}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{
+                      opacity: 0,
+                      transition: { duration: 0.2 },
+                    }}
+                  >
+                    <Card
+                      id={id}
+                      countryName={name}
+                      capital={capital}
+                      flag={flag}
+                      region={region}
+                      population={population}
+                    />
+                  </motion.div>
+                )
+              )}
+            </AnimatePresence>
+          </Content>
+        )}
+      </Layout>
+    </InfiniteScroll>
   );
 };
 
@@ -72,8 +168,8 @@ IndexPage.propTypes = {
 };
 
 export const query = graphql`
-  query {
-    allInternalCountries(limit: 24) {
+query allCountries {
+  allInternalCountries(filter: { name: { ne: null } }) {
       nodes {
         id
         name

@@ -174,44 +174,58 @@ const DetailedLayout = ({
           <Title>{name}</Title>
           <Description>
             <InnerWrapper>
-              <Detail>
-                Native Name: <Value>{nativeName}</Value>
-              </Detail>
+              {nativeName && (
+                <Detail>
+                  Native Name: <Value>{nativeName}</Value>
+                </Detail>
+              )}
               <Detail>
                 Population: <Value>{population}</Value>
               </Detail>
-              <Detail>
-                Region: <Value>{region}</Value>
-              </Detail>
-              <Detail>
-                Sub Region: <Value>{subregion}</Value>
-              </Detail>
-              <Detail>
-                Capital: <Value>{capital}</Value>
-              </Detail>
+              {region && (
+                <Detail>
+                  Region: <Value>{region}</Value>
+                </Detail>
+              )}
+              {subregion && (
+                <Detail>
+                  Sub Region: <Value>{subregion}</Value>
+                </Detail>
+              )}
+              {capital && (
+                <Detail>
+                  Capital: <Value>{capital}</Value>
+                </Detail>
+              )}
             </InnerWrapper>
             <InnerWrapper>
-              <Detail>
-                Top Level Domain: <Value>{topLevelDomain}</Value>
-              </Detail>
-              <Detail>
-                Currencies:{' '}
-                <Value>
-                  {currencies.reduce((prev, curr) => {
-                    const comma = prev.length ? ', ' : '';
-                    return prev + comma + curr.name;
-                  }, '')}
-                </Value>
-              </Detail>
-              <Detail>
-                Languages:{' '}
-                <Value>
-                  {languages.reduce((prev, lang) => {
-                    const comma = prev.length ? ', ' : '';
-                    return prev + comma + lang.name;
-                  }, '')}
-                </Value>
-              </Detail>
+              {topLevelDomain && (
+                <Detail>
+                  Top Level Domain: <Value>{topLevelDomain}</Value>
+                </Detail>
+              )}
+              {currencies.length !== 0 && (
+                <Detail>
+                  Currencies:{' '}
+                  <Value>
+                    {currencies.reduce((prev, curr) => {
+                      const comma = prev.length ? ', ' : '';
+                      return prev + comma + curr.name;
+                    }, '')}
+                  </Value>
+                </Detail>
+              )}
+              {languages.length !== 0 && (
+                <Detail>
+                  Languages:{' '}
+                  <Value>
+                    {languages.reduce((prev, lang) => {
+                      const comma = prev.length ? ', ' : '';
+                      return prev + comma + lang.name;
+                    }, '')}
+                  </Value>
+                </Detail>
+              )}
             </InnerWrapper>
           </Description>
           <InnerWrapper>

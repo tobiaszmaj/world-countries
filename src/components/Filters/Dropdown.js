@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import dropIcon from 'icons/arrow-down.svg';
 import useTheme from 'hooks/useTheme';
 import useOutsideClick from 'hooks/useOutsideClick';
@@ -63,8 +64,9 @@ const Option = styled.li`
   }
 `;
 
-const Dropdown = () => {
+const Dropdown = ({ regions, handleSelect, selectedRegion }) => {
   const [areOptionsVisible, setOptionsVisibility] = useState(false);
+
   const { isDarkTheme } = useTheme();
   const selectRef = useRef(null);
   const optionsRef = useRef(null);
@@ -75,6 +77,11 @@ const Dropdown = () => {
 
   useOutsideClick(optionsRef, setOptionsVisibility, selectRef);
 
+  const handleOptionPick = region => {
+    setOptionsVisibility(false);
+    handleSelect(region);
+  };
+
   return (
     <Wrapper>
       <Select
@@ -82,18 +89,24 @@ const Dropdown = () => {
         ref={selectRef}
         onClick={toggleOptionsVisibility}
       >
-        <Name>Filter by Region</Name>
+        <Name>{selectedRegion || 'Filter by region'}</Name>
         <Icon isWhite={isDarkTheme} />
       </Select>
       <Options ref={optionsRef} isVisible={areOptionsVisible}>
-        <Option>Africa</Option>
-        <Option>America</Option>
-        <Option>Asia</Option>
-        <Option>Europe</Option>
-        <Option>Oceania</Option>
+        {regions.map(region => (
+          <Option key={region} onClick={() => handleOptionPick(region)}>
+            {region}
+          </Option>
+        ))}
       </Options>
     </Wrapper>
   );
+};
+
+Dropdown.propTypes = {
+  selectedRegion: PropTypes.string.isRequired,
+  regions: PropTypes.arrayOf(PropTypes.string).isRequired,
+  handleSelect: PropTypes.func.isRequired,
 };
 
 export default Dropdown;

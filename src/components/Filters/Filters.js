@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import SearchInput from './SearchInput';
 import Dropdown from './Dropdown';
@@ -21,13 +22,24 @@ const SearchWrapper = styled.div`
   }
 `;
 
-const Filters = () => (
-    <Wrapper>
-        <SearchWrapper>
-            <SearchInput />
-        </SearchWrapper>
-        <Dropdown />
-    </Wrapper>
+const Filters = ({ handleInput, handleSelect, regions, selectedRegion }) => (
+  <Wrapper>
+    <SearchWrapper>
+      <SearchInput handleInput={handleInput} />
+    </SearchWrapper>
+    <Dropdown
+      selectedRegion={selectedRegion}
+      regions={regions}
+      handleSelect={handleSelect}
+    />
+  </Wrapper>
 );
+
+Filters.propTypes = {
+  selectedRegion: PropTypes.string.isRequired,
+  regions: PropTypes.arrayOf(PropTypes.string).isRequired,
+  handleInput: PropTypes.func.isRequired,
+  handleSelect: PropTypes.func.isRequired,
+};
 
 export default Filters;

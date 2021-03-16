@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import searchIcon from 'icons/search.svg';
 import searchWhiteIcon from 'icons/search-white.svg';
@@ -31,16 +32,21 @@ const Input = styled.input`
     `}
 `;
 
-const SearchInput = () => {
+const SearchInput = ({ handleInput }) => {
   const { isDarkTheme } = useTheme();
 
   return (
     <Input
+      onChange={handleInput}
       isDarkTheme={isDarkTheme}
       type="text"
       placeholder="Search for a country..."
     />
   );
+};
+
+SearchInput.propTypes = {
+  handleInput: PropTypes.func.isRequired,
 };
 
 export default SearchInput;

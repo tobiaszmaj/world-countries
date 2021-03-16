@@ -42,7 +42,7 @@ module.exports = {
         name: `gatsby-starter-default`,
         short_name: `starter`,
         start_url: `/`,
-        icon: `src/assets/favicon.png`,
+        icon: `src/assets/images/favicon.png`,
       },
     },
     {
@@ -63,6 +63,7 @@ module.exports = {
         actions: path.join(__dirname, 'src/redux/actions'),
         reducer: path.join(__dirname, 'src/redux/reducer'),
         icons: path.join(__dirname, 'src/assets/icons'),
+        images: path.join(__dirname, 'src/assets/images'),
       },
     },
   ],

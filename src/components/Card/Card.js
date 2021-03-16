@@ -4,8 +4,9 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 const Wrapper = styled(Link)`
-  width: 100%;
+display: block;
   max-width: 320px;
+  height: 100%;
   border-radius: 8px;
   overflow: hidden;
   background-color: ${({ theme }) => theme.element};
@@ -59,12 +60,16 @@ const Card = ({ id, countryName, population, region, capital, flag }) => {
         <Detail>
           Population: <Value>{population}</Value>
         </Detail>
-        <Detail>
-          Region: <Value>{region}</Value>
-        </Detail>
-        <Detail>
-          Capital: <Value>{capital}</Value>
-        </Detail>
+        {region && (
+          <Detail>
+            Region: <Value>{region}</Value>
+          </Detail>
+        )}
+        {capital && (
+          <Detail>
+            Capital: <Value>{capital}</Value>
+          </Detail>
+        )}
       </Content>
     </Wrapper>
   );
