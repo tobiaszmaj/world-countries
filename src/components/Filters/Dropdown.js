@@ -20,7 +20,7 @@ const Select = styled.div`
   padding: 20px 25px;
   box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.25);
   border-radius: 8px;
-  transition: 0.3s;
+  transition: background-color 0.3s;
   background-color: ${({ theme }) => theme.element};
   cursor: pointer;
   border: 2px solid;
@@ -59,6 +59,7 @@ const Option = styled.li`
   padding: 10px 25px;
   cursor: pointer;
   transition: 0.3s;
+  color: ${({ theme, isActive }) => (isActive ? theme.blue : theme.text)};
   &:hover {
     color: ${({ theme }) => theme.blue};
   }
@@ -94,7 +95,14 @@ const Dropdown = ({ regions, handleSelect, selectedRegion }) => {
       </Select>
       <Options ref={optionsRef} isVisible={areOptionsVisible}>
         {regions.map(region => (
-          <Option key={region} onClick={() => handleOptionPick(region)}>
+          <Option
+            key={region}
+            isActive={
+              selectedRegion === region ||
+              (selectedRegion === '' && region === 'All')
+            }
+            onClick={() => handleOptionPick(region)}
+          >
             {region}
           </Option>
         ))}

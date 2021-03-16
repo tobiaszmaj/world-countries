@@ -21,7 +21,8 @@ display: block;
 `;
 
 const ImageWrapper = styled.div`
-  width: 100%;
+width: 320px;
+height: 200px;
 `;
 
 const Image = styled.img`
@@ -58,7 +59,10 @@ const Card = ({ id, countryName, population, region, capital, flag }) => {
       <Content>
         <Title>{countryName}</Title>
         <Detail>
-          Population: <Value>{population}</Value>
+          Population:{' '}
+          <Value>
+            {population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}
+          </Value>
         </Detail>
         {region && (
           <Detail>

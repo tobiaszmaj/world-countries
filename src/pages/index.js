@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import Card from 'components/Card/Card';
 import EmptyState from 'components/EmptyState/EmptyState';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { AnimatePresence, motion } from 'framer-motion';
 
 const FiltersWrapper = styled.div`
   margin: 25px 0;
@@ -63,15 +62,14 @@ const IndexPage = ({
       if (key === 'query') {
         selectFilters =
           selectedRegion === 'All' || selectedRegion === ''
-            ? nodes
+            ? true
             : region === selectedRegion;
         queryFilters = name.toLowerCase().includes(value.toLowerCase());
       }
       if (key === 'selectedRegion') {
-        selectFilters = value === 'All' ? nodes : value === region;
+        selectFilters = value === 'All' ? true : value === region;
         queryFilters = name.toLowerCase().includes(query.toLowerCase());
       }
-
       const newCountries = queryFilters && selectFilters;
       return newCountries;
     });
@@ -130,30 +128,19 @@ const IndexPage = ({
           <EmptyState />
         ) : (
           <Content>
-            <AnimatePresence>
-              {countriesToShow.map(
-                ({ id, name, capital, flag, region, population }) => (
-                  <motion.div
-                    key={id}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{
-                      opacity: 0,
-                      transition: { duration: 0.2 },
-                    }}
-                  >
-                    <Card
-                      id={id}
-                      countryName={name}
-                      capital={capital}
-                      flag={flag}
-                      region={region}
-                      population={population}
-                    />
-                  </motion.div>
-                )
-              )}
-            </AnimatePresence>
+            {countriesToShow.map(
+              ({ id, name, capital, flag, region, population }) => (
+                <Card
+                  key={id}
+                  id={id}
+                  countryName={name}
+                  capital={capital}
+                  flag={flag}
+                  region={region}
+                  population={population}
+                />
+              )
+            )}
           </Content>
         )}
       </Layout>

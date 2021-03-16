@@ -58,7 +58,6 @@ const Content = styled.main`
   flex-direction: column;
   ${({ theme }) => theme.mq.md} {
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
   }
 `;
@@ -66,12 +65,19 @@ const Content = styled.main`
 const InnerContent = styled.div`
   display: flex;
   flex-direction: column;
-  padding-left: 30px;
+  padding: 30px 0 0 0;
+  ${({ theme }) => theme.mq.md} {
+    padding: 0 0 0 30px;
+  }
+  ${({ theme }) => theme.mq.lg} {
+    padding: 0 0 0 60px;
+  }
 `;
 
 const Description = styled.div`
   display: flex;
   flex-direction: column;
+  max-width: 600px;
   ${({ theme }) => theme.mq.md} {
     flex-direction: row;
     justify-content: space-between;
@@ -92,13 +98,16 @@ const Description = styled.div`
 `;
 
 const ImageWrapper = styled.div`
+flex-basis: 45%;
   overflow: hidden;
   border-radius: 4px;
   box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.25);
+  min-width: 280px;
   max-width: 700px;
 `;
 
 const Image = styled.img`
+display: block;
   width: 100%;
   height: 100%;
 `;
@@ -119,7 +128,6 @@ const Detail = styled.div`
 `;
 
 const Value = styled.span`
-  text-transform: capitalize;
   font-weight: ${({ theme }) => theme.light};
 `;
 
@@ -129,9 +137,10 @@ const Heading = styled.h2`
 
 const Borders = styled.div`
   display: flex;
+  flex-wrap: wrap;
   margin: 20px 0;
   & > * {
-    margin-right: 10px;
+    margin: 10px 10px 0 0;
   }
 `;
 
@@ -156,6 +165,17 @@ const DetailedLayout = ({
     currencies,
     languages,
   } = country;
+
+  const displayValues = (values, key = null, lowerCase = false) => {
+    const stringifiedValues = values.reduce((prev, next) => {
+      const comma = prev.length ? ', ' : '';
+      return key ? prev + comma + next[key] : prev + comma + next;
+    }, '');
+
+    if (lowerCase) return stringifiedValues.toLowerCase();
+    return stringifiedValues;
+  };
+
   return (
     <Layout>
       <LinkWrapper>
@@ -180,7 +200,10 @@ const DetailedLayout = ({
                 </Detail>
               )}
               <Detail>
-                Population: <Value>{population}</Value>
+                Population:{' '}
+                <Value>
+                  {population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}
+                </Value>
               </Detail>
               {region && (
                 <Detail>
@@ -201,29 +224,18 @@ const DetailedLayout = ({
             <InnerWrapper>
               {topLevelDomain && (
                 <Detail>
-                  Top Level Domain: <Value>{topLevelDomain}</Value>
+                  Top Level Domain:{' '}
+                  <Value>{displayValues(topLevelDomain, null, true)}</Value>
                 </Detail>
               )}
               {currencies.length !== 0 && (
                 <Detail>
-                  Currencies:{' '}
-                  <Value>
-                    {currencies.reduce((prev, curr) => {
-                      const comma = prev.length ? ', ' : '';
-                      return prev + comma + curr.name;
-                    }, '')}
-                  </Value>
+                  Currencies: <Value>{displayValues(currencies, 'name')}</Value>
                 </Detail>
               )}
               {languages.length !== 0 && (
                 <Detail>
-                  Languages:{' '}
-                  <Value>
-                    {languages.reduce((prev, lang) => {
-                      const comma = prev.length ? ', ' : '';
-                      return prev + comma + lang.name;
-                    }, '')}
-                  </Value>
+                  Languages: <Value>{displayValues(languages, 'name')}</Value>
                 </Detail>
               )}
             </InnerWrapper>
