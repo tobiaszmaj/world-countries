@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import emptyStateImg from 'images/emptyState.png';
+import emptyStateImg from 'icons/emptyState.svg';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -13,28 +13,28 @@ const Wrapper = styled.div`
   padding: 0 20px;
 `;
 
-const Background = styled.div`
+const Image = styled.img`
   margin: 0 auto;
   width: 100%;
-  max-width: 400px;
-  height: 200px;
-  background: url(${emptyStateImg}) no-repeat center;
-  background-size: 100%;
-  ${({ theme }) => theme.mq.smallTablet} {
-    height: 270px;
+  max-width: 250px;
+  ${({ theme }) => theme.mq.md} {
+    max-width: 350px;
   }
 `;
 
 const Title = styled.h1`
   margin: 20px 0 0;
-  font-size: ${({ theme }) => theme.fontSize.xl};
+  font-size: ${({ theme }) => theme.fontSize.lg};
+  ${({ theme }) => theme.mq.md} {
+    font-size: ${({ theme }) => theme.fontSize.xl};
+  }
 `;
 
 const EmptyState = () => (
-    <Wrapper>
-        <Background />
-        <Title>No countries found...</Title>
-    </Wrapper>
+  <Wrapper>
+    <Image src={emptyStateImg} alt="No countries" />
+    <Title>No countries found...</Title>
+  </Wrapper>
 );
 
 export default EmptyState;

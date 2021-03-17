@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 import slugify from 'slugify';
 
 const Wrapper = styled(Link)`
-display: block;
+  display: block;
+  width: 100%;
   max-width: 320px;
   height: 100%;
   border-radius: 8px;
@@ -16,14 +17,16 @@ display: block;
   border: 2px solid transparent;
   color: ${({ theme }) => theme.text};
   text-decoration: none;
+  opacity: ${({ visible }) => (visible ? '1' : '0')};
+  visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};
   &:hover {
     border-color: ${({ theme }) => theme.blue};
   }
 `;
 
 const ImageWrapper = styled.div`
-width: 320px;
-height: 200px;
+  width: 100%;
+  height: 200px;
 `;
 
 const Image = styled.img`
@@ -33,49 +36,58 @@ const Image = styled.img`
 `;
 
 const Content = styled.div`
-padding: 30px 20px;
+  padding: 30px 20px;
 `;
 
 const Title = styled.h3`
-margin-bottom: 20px;
-font-size: ${({ theme }) => theme.fontSize.lg};
-font-weight: ${({ theme }) => theme.semiBold};
+  margin-bottom: 20px;
+  font-size: ${({ theme }) => theme.fontSize.lg};
+  font-weight: ${({ theme }) => theme.semiBold};
 `;
 
 const Detail = styled.div`
+  display: flex;
   margin-bottom: 5px;
 `;
 
 const Value = styled.span`
+  margin-left: 5px;
   text-transform: capitalize;
   font-weight: ${({ theme }) => theme.light};
 `;
 
-const Card = ({ countryName, population, region, capital, flag }) => {
+const Card = ({
+  isVisible,
+  countryName,
+  population,
+  region,
+  capital,
+  flag,
+}) => {
   const slugifiedName = slugify(countryName, {
     lower: true,
   });
   return (
-    <Wrapper to={`/${slugifiedName}`}>
+    <Wrapper visible={isVisible.toString()} to={`/${slugifiedName}`}>
       <ImageWrapper>
         <Image src={flag} alt={countryName} />
       </ImageWrapper>
       <Content>
         <Title>{countryName}</Title>
         <Detail>
-          Population:{' '}
+          Population:
           <Value>
             {population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}
           </Value>
         </Detail>
         {region && (
           <Detail>
-            Region: <Value>{region}</Value>
+            Region:<Value>{region}</Value>
           </Detail>
         )}
         {capital && (
           <Detail>
-            Capital: <Value>{capital}</Value>
+            Capital:<Value>{capital}</Value>
           </Detail>
         )}
       </Content>
@@ -84,6 +96,7 @@ const Card = ({ countryName, population, region, capital, flag }) => {
 };
 
 Card.propTypes = {
+  isVisible: PropTypes.bool.isRequired,
   countryName: PropTypes.string.isRequired,
   population: PropTypes.number.isRequired,
   region: PropTypes.string.isRequired,

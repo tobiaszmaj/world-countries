@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import searchIcon from 'icons/search.svg';
@@ -33,11 +33,22 @@ const Input = styled.input`
 `;
 
 const SearchInput = ({ handleInput }) => {
+  const [inputValue, setInputValue] = useState('');
   const { isDarkTheme } = useTheme();
+
+  const handleInputChange = e => {
+    setInputValue(e.target.value);
+  };
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => handleInput(inputValue), 300);
+    return () => clearTimeout(timeoutId);
+  }, [inputValue]);
 
   return (
     <Input
-      onChange={handleInput}
+      value={inputValue}
+      onChange={e => handleInputChange(e)}
       isDarkTheme={isDarkTheme}
       type="text"
       placeholder="Search for a country..."

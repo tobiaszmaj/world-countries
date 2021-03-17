@@ -18,7 +18,6 @@ module.exports = {
     {
       resolve: 'gatsby-source-apiserver',
       options: {
-        typePrefix: 'internal__',
         url: `https://restcountries.eu/rest/v2/all`,
         method: 'get',
         headers: {

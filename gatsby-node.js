@@ -5,7 +5,7 @@ exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
   const result = await graphql(`
   query allCountries {
-    allInternalCountries(filter: { name: { ne: null } }) {
+    allCountries(filter: { name: { ne: null } }) {
         nodes {
           id
           name
@@ -15,7 +15,7 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `);
 
-  result.data.allInternalCountries.nodes.forEach(country => {
+  result.data.allCountries.nodes.forEach(country => {
     const slugifiedName = slugify(country.name, {
       lower: true,
     });
