@@ -1,9 +1,9 @@
 import React, { useState, useRef, useContext } from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import dropIcon from 'icons/arrow-down.svg';
 import { ThemeContext } from 'contexts/ThemeContext';
 import useOutsideClick from 'hooks/useOutsideClick';
+import { FiltersContext } from 'contexts/FiltersContext/FiltersContext';
 
 const Wrapper = styled.div`
   position: relative;
@@ -20,11 +20,10 @@ const Select = styled.div`
   padding: 20px 25px;
   box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.25);
   border-radius: 8px;
-  transition: background-color 0.3s;
+  transition: border-color 0.3s;
   background-color: ${({ theme }) => theme.element};
   cursor: pointer;
   border: 2px solid;
-  transition: 0.3s;
   border-color: ${({ isActive, theme }) =>
     isActive ? theme.blue : 'transparent'};
 `;
@@ -51,7 +50,7 @@ const Options = styled.ul`
   font-size: ${({ theme }) => theme.fontSize.s};
   border-radius: 8px;
   box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.25);
-  transition: 0.3s;
+  transition: 0.3s opacity, 0.3s visibility;
   opacity: ${({ isVisible }) => (isVisible ? '1' : '0')};
   visibility: ${({ isVisible }) => (isVisible ? 'visible' : 'hidden')};
 `;
@@ -66,9 +65,12 @@ const Option = styled.li`
   }
 `;
 
-const Dropdown = ({ regions, handleSelect, selectedRegion }) => {
+const Dropdown = () => {
   const [areOptionsVisible, setOptionsVisibility] = useState(false);
 
+  const { allRegions, handleSelect, selectedRegion } = useContext(
+    FiltersContext
+  );
   const { isDarkTheme } = useContext(ThemeContext);
   const selectRef = useRef(null);
   const optionsRef = useRef(null);
@@ -95,7 +97,7 @@ const Dropdown = ({ regions, handleSelect, selectedRegion }) => {
         <Icon isWhite={isDarkTheme} />
       </Select>
       <Options ref={optionsRef} isVisible={areOptionsVisible}>
-        {regions.map(region => (
+        {allRegions.map(region => (
           <Option
             key={region}
             isActive={
@@ -110,12 +112,6 @@ const Dropdown = ({ regions, handleSelect, selectedRegion }) => {
       </Options>
     </Wrapper>
   );
-};
-
-Dropdown.propTypes = {
-  selectedRegion: PropTypes.string.isRequired,
-  regions: PropTypes.arrayOf(PropTypes.string).isRequired,
-  handleSelect: PropTypes.func.isRequired,
 };
 
 export default Dropdown;

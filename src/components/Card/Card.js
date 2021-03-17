@@ -12,7 +12,7 @@ const Wrapper = styled(Link)`
   border-radius: 8px;
   overflow: hidden;
   background-color: ${({ theme }) => theme.element};
-  transition: 0.3s;
+  transition: 0.3s opacity, 0.3s visibility, 0.3s border-color;
   box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.25);
   border: 2px solid transparent;
   color: ${({ theme }) => theme.text};

@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.25);
   background-color: ${({ theme }) => theme.element};
   border-radius: 8px;
-  transition: 0.3s;
+  transition: 0.3s opacity, 0.3s visibility;
   opacity: ${({ visible }) => (visible ? '1' : '0')};
   visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};
 `;

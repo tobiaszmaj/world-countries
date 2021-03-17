@@ -5,31 +5,37 @@ import PropTypes from 'prop-types';
 
 export const ThemeContext = createContext();
 
-const ThemeProvider = ({ children }) => {
-    const [isDarkTheme, setIsDark] = useState(false);
+const darkMode = { ...baseTheme, ...darkTheme };
+const lightMode = { ...baseTheme, ...lightTheme };
 
-    const setMode = mode => {
-        window.localStorage.setItem('isDarkTheme', mode);
-        setIsDark(mode);
+const ThemeProvider = ({ children }) => {
+    const [isDarkTheme, setIsDarkTheme] = useState(false);
+    const [appTheme, setAppTheme] = useState(lightMode);
+
+    const setTheme = (mode, isDark) => {
+        localStorage.setItem(
+            'theme',
+            JSON.stringify({ theme: mode, isDarkTheme: isDark })
+        );
+        setIsDarkTheme(isDark);
+        setAppTheme(mode);
     };
 
     const toggleTheme = () => {
-        setMode(!isDarkTheme);
+        if (appTheme === lightMode) setTheme(darkMode, true);
+        else setTheme(lightMode, false);
     };
 
     useEffect(() => {
-        const localTheme = window.localStorage.getItem('isDarkTheme');
-        if (localTheme) setIsDark(localTheme);
+        const localTheme = JSON.parse(localStorage.getItem('theme'));
+        if (localTheme) {
+            setAppTheme(localTheme.theme);
+            setIsDarkTheme(localTheme.isDarkTheme);
+        }
     }, []);
 
     return (
-        <ThemeProviderSC
-            theme={
-                isDarkTheme
-                    ? { ...baseTheme, ...darkTheme }
-                    : { ...baseTheme, ...lightTheme }
-            }
-        >
+        <ThemeProviderSC theme={appTheme}>
             <ThemeContext.Provider value={{ isDarkTheme, toggleTheme }}>
                 {children}
             </ThemeContext.Provider>

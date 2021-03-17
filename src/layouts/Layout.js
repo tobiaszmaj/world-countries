@@ -6,6 +6,7 @@ import Navbar from 'components/Navbar/Navbar';
 import ReturnToTop from 'components/ReturnToTop/ReturnToTop';
 import { motion, AnimatePresence } from 'framer-motion';
 import ThemeProvider from 'contexts/ThemeContext';
+import FiltersProvider from 'contexts/FiltersContext/FiltersContext';
 
 const Wrapper = styled.div`
   margin: 0 auto;
@@ -43,24 +44,28 @@ const Layout = ({ children, location }) => (
     <GlobalStyle />
     <Navbar />
     <Wrapper>
-      <AnimatePresence>
-        <motion.div
-          key={location.pathname}
-          variants={variants}
-          initial="initial"
-          animate="enter"
-          exit="exit"
-        >
-          {children}
-        </motion.div>
-      </AnimatePresence>
+      <FiltersProvider>
+        <AnimatePresence>
+          <motion.div
+            key={location.pathname}
+            variants={variants}
+            initial="initial"
+            animate="enter"
+            exit="exit"
+          >
+            {children}
+          </motion.div>
+        </AnimatePresence>
+      </FiltersProvider>
     </Wrapper>
     <ReturnToTop />
   </ThemeProvider>
 );
 
 Layout.propTypes = {
-  location: PropTypes.objectOf(PropTypes.string).isRequired,
+  location: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.object])
+  ).isRequired,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,

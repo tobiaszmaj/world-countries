@@ -20,7 +20,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: 0.3s;
+  transition: 0.3s opacity, 0.3s visibility;
   opacity: ${({ isVisible }) => (isVisible ? '1' : '0')};
   visibility: ${({ isVisible }) => (isVisible ? 'visible' : 'hidden')};
   ${({ theme }) => theme.mq.lg} {
@@ -35,7 +35,6 @@ const Icon = styled.i`
   height: 18px;
   background: url(${arrowIcon}) no-repeat center;
   background-size: 100%;
-  transition: 0.3s;
   filter: ${({ isWhite }) => (isWhite ? 'invert(1)' : 'invert(0)')};
 `;
 

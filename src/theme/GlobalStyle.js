@@ -36,7 +36,6 @@ const GlobalStyle = createGlobalStyle`
     background: ${({ theme }) => theme.background};
     font-family: ${({ theme }) => theme.fonts.mainFont};
     font-size: 1.6rem;
-    transition: 0.3s;
   }
 `;
 

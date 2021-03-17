@@ -20,6 +20,6 @@ export const shouldUpdateScroll = ({
 };
 
 wrapPageElement.propTypes = {
-    props: PropTypes.objectOf(PropTypes.string).isRequired,
+    props: PropTypes.objectOf(PropTypes.object).isRequired,
     element: PropTypes.element.isRequired,
 };

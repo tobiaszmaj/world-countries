@@ -1,6 +1,4 @@
-import React from 'react';
-import { graphql } from 'gatsby';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import SEO from 'components/SEO/SEO';
 import Filters from 'components/Filters/Filters';
@@ -8,7 +6,7 @@ import Card from 'components/Card/Card';
 import SkeletonCard from 'components/Card/SkeletonCard';
 import EmptyState from 'components/EmptyState/EmptyState';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import useCountries from 'hooks/useCountries';
+import { FiltersContext } from 'contexts/FiltersContext/FiltersContext';
 
 const FiltersWrapper = styled.div`
   margin: 25px 0;
@@ -56,32 +54,16 @@ const CardInnerWrapper = styled.div`
   bottom: 0;
 `;
 
-const IndexPage = ({
-  data: {
-    allCountries: { nodes },
-  },
-}) => {
-  const {
-    isLoading,
-    selectedRegion,
-    countriesToShow,
-    allCountries,
-    regions,
-    handleScroll,
-    handleSelect,
-    handleInputChange,
-  } = useCountries(nodes);
+const IndexPage = () => {
+  const { isLoading, countriesToShow, allCountries, handleScroll } = useContext(
+    FiltersContext
+  );
 
   return (
     <>
       <SEO title="Home | World countries" />
       <FiltersWrapper>
-        <Filters
-          selectedRegion={selectedRegion}
-          regions={regions}
-          handleSelect={handleSelect}
-          handleInput={handleInputChange}
-        />
+        <Filters />
       </FiltersWrapper>
       {countriesToShow.length === 0 ? (
         <EmptyState />
@@ -117,25 +99,5 @@ const IndexPage = ({
     </>
   );
 };
-
-IndexPage.propTypes = {
-  data: PropTypes.shape({
-    allCountries: PropTypes.objectOf(PropTypes.array),
-  }).isRequired,
-};
-
-export const query = graphql`
-query allCountries {
-  allCountries(filter: { name: { ne: null } }) {
-      nodes {
-        name
-        capital
-        flag
-        region
-        population
-      }
-    }
-  }
-`;
 
 export default IndexPage;
