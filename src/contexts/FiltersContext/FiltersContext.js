@@ -40,20 +40,6 @@ const FiltersProvider = ({ children }) => {
     }, []);
 
     useEffect(() => {
-        const showLoading = () => {
-            dispatch({ type: 'TOGGLE_LOADING', payload: true });
-        };
-        const hideLoading = () => {
-            dispatch({ type: 'TOGGLE_LOADING', payload: false });
-        };
-
-        showLoading();
-        const timeoutId = setTimeout(hideLoading, 1000);
-
-        return () => clearTimeout(timeoutId);
-    }, [countries.query, countries.selectedRegion]);
-
-    useEffect(() => {
         const { query, selectedRegion } = countries;
 
         const filteredCountries = nodes.filter(({ name, region }) => {
@@ -70,15 +56,24 @@ const FiltersProvider = ({ children }) => {
             return newCountries;
         });
 
-        const timeoutID = setTimeout(() => {
+        const hideLoading = () => {
+            dispatch({ type: 'TOGGLE_LOADING', payload: false });
+        };
+
+        dispatch({ type: 'TOGGLE_LOADING', payload: true });
+        const timeoutLoading = setTimeout(hideLoading, 1000);
+        const timeoutDispatch = setTimeout(() => {
             dispatch({ type: 'ALL_COUNTRIES', payload: filteredCountries });
             dispatch({
                 type: 'COUNTRIES_TO_SHOW',
                 payload: filteredCountries.slice(0, COUNTRIES_PER_SCROLL),
             });
-        }, 150);
+        }, 250);
 
-        return () => clearTimeout(timeoutID);
+        return () => {
+            clearTimeout(timeoutLoading);
+            clearTimeout(timeoutDispatch);
+        };
     }, [countries.query, countries.selectedRegion]);
 
     const handleInput = query => {

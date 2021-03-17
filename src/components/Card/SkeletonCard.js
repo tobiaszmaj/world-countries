@@ -41,7 +41,7 @@ const SkeletonCard = ({ visible }) => {
         <Wrapper visible={visible ? 1 : 0}>
             <SkeletonTheme
                 color={isDarkTheme ? '#495175' : '#e6e6e6'}
-                highlightColor={isDarkTheme ? '#545c85' : '#fff'}
+                highlightColor={isDarkTheme ? '#495175' : '#e6e6e6'}
             >
                 <Overlay>
                     <Skeleton width="100%" height={200} />

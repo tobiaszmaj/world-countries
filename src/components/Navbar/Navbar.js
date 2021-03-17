@@ -3,6 +3,7 @@ import { Link } from 'gatsby';
 import styled from 'styled-components';
 import moonIcon from 'icons/moon.svg';
 import { ThemeContext } from 'contexts/ThemeContext';
+import { FiltersContext } from 'contexts/FiltersContext/FiltersContext';
 
 const Wrapper = styled.nav`
   position: fixed;
@@ -90,11 +91,12 @@ font-size: ${({ theme }) => theme.fontSize.s};
 
 const Navbar = () => {
   const { isDarkTheme, toggleTheme } = useContext(ThemeContext);
+  const { clearFilters } = useContext(FiltersContext);
 
   return (
     <Wrapper>
       <InnerWrapper>
-        <TitleWrapper to="/">
+        <TitleWrapper onClick={clearFilters} to="/">
           <Title>World countries</Title>
         </TitleWrapper>
         <DarkModeButton onClick={toggleTheme}>

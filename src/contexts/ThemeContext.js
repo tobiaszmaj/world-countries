@@ -22,8 +22,8 @@ const ThemeProvider = ({ children }) => {
     };
 
     const toggleTheme = () => {
-        if (appTheme === lightMode) setTheme(darkMode, true);
-        else setTheme(lightMode, false);
+        if (isDarkTheme) setTheme(lightMode, false);
+        else setTheme(darkMode, true);
     };
 
     useEffect(() => {

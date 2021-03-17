@@ -41,10 +41,10 @@ const variants = {
 
 const Layout = ({ children, location }) => (
   <ThemeProvider>
-    <GlobalStyle />
-    <Navbar />
-    <Wrapper>
-      <FiltersProvider>
+    <FiltersProvider>
+      <GlobalStyle />
+      <Navbar />
+      <Wrapper>
         <AnimatePresence>
           <motion.div
             key={location.pathname}
@@ -56,9 +56,9 @@ const Layout = ({ children, location }) => (
             {children}
           </motion.div>
         </AnimatePresence>
-      </FiltersProvider>
-    </Wrapper>
-    <ReturnToTop />
+      </Wrapper>
+      <ReturnToTop />
+    </FiltersProvider>
   </ThemeProvider>
 );
 
