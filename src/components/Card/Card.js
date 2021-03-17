@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'gatsby';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import slugify from 'slugify';
 
 const Wrapper = styled(Link)`
 display: block;
@@ -50,9 +51,12 @@ const Value = styled.span`
   font-weight: ${({ theme }) => theme.light};
 `;
 
-const Card = ({ id, countryName, population, region, capital, flag }) => {
+const Card = ({ countryName, population, region, capital, flag }) => {
+  const slugifiedName = slugify(countryName, {
+    lower: true,
+  });
   return (
-    <Wrapper to={id}>
+    <Wrapper to={`/${slugifiedName}`}>
       <ImageWrapper>
         <Image src={flag} alt={countryName} />
       </ImageWrapper>
@@ -80,7 +84,6 @@ const Card = ({ id, countryName, population, region, capital, flag }) => {
 };
 
 Card.propTypes = {
-  id: PropTypes.string.isRequired,
   countryName: PropTypes.string.isRequired,
   population: PropTypes.number.isRequired,
   region: PropTypes.string.isRequired,

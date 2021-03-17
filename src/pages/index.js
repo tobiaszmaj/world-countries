@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { graphql } from 'gatsby';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import slugify from 'slugify';
 import SEO from 'components/SEO/SEO';
 import Layout from 'layouts/Layout';
 import Filters from 'components/Filters/Filters';
-import PropTypes from 'prop-types';
 import Card from 'components/Card/Card';
 import EmptyState from 'components/EmptyState/EmptyState';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -53,47 +54,53 @@ const IndexPage = ({
     query: '',
   });
 
-  const applyFilters = (key, value) => {
+  useEffect(() => {
     const { query, selectedRegion } = countries;
+    const filteredCountries = nodes.filter(({ name, region }) => {
+      const selectFilters =
+        selectedRegion === 'All' || selectedRegion === ''
+          ? true
+          : region === selectedRegion;
+      const queryFilters = slugify(name, {
+        replacement: ' ',
+        lower: true,
+      }).includes(query);
 
-    const filtered = nodes.filter(({ name, region }) => {
-      let selectFilters = true;
-      let queryFilters = true;
-      if (key === 'query') {
-        selectFilters =
-          selectedRegion === 'All' || selectedRegion === ''
-            ? true
-            : region === selectedRegion;
-        queryFilters = name.toLowerCase().includes(value.toLowerCase());
-      }
-      if (key === 'selectedRegion') {
-        selectFilters = value === 'All' ? true : value === region;
-        queryFilters = name.toLowerCase().includes(query.toLowerCase());
-      }
       const newCountries = queryFilters && selectFilters;
       return newCountries;
     });
 
     setCountries({
       ...countries,
-      [key]: value,
-      allCountries: filtered,
-      countriesToShow: filtered.slice(0, COUNTRIES_PER_SCROLL),
+      allCountries: filteredCountries,
+      countriesToShow: filteredCountries.slice(0, COUNTRIES_PER_SCROLL),
+    });
+  }, [countries.query, countries.selectedRegion]);
+
+  const handleInputChange = e => {
+    const query = e.target.value;
+    const slugifiedQuery = slugify(query, {
+      replacement: ' ',
+      lower: true,
+    });
+    setCountries({
+      ...countries,
+      query: slugifiedQuery,
     });
   };
 
-  const handleInputChange = e => {
-    applyFilters('query', e.target.value);
-  };
-
   const handleSelect = selectedRegion => {
-    applyFilters('selectedRegion', selectedRegion);
+    setCountries({
+      ...countries,
+      selectedRegion,
+    });
   };
 
   const handleScroll = () => {
     const { countriesToShow, allCountries } = countries;
     const start = countriesToShow.length;
     const end = countriesToShow.length + COUNTRIES_PER_SCROLL;
+
     setCountries({
       ...countries,
       countriesToShow: [...countriesToShow, ...allCountries.slice(start, end)],
@@ -129,10 +136,9 @@ const IndexPage = ({
         ) : (
           <Content>
             {countriesToShow.map(
-              ({ id, name, capital, flag, region, population }) => (
+              ({ name, capital, flag, region, population }) => (
                 <Card
-                  key={id}
-                  id={id}
+                  key={name}
                   countryName={name}
                   capital={capital}
                   flag={flag}
@@ -158,7 +164,6 @@ export const query = graphql`
 query allCountries {
   allInternalCountries(filter: { name: { ne: null } }) {
       nodes {
-        id
         name
         capital
         flag

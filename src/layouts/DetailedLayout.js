@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { graphql, Link } from 'gatsby';
 import backIcon from 'icons/back.svg';
 import useTheme from 'hooks/useTheme';
+import slugify from 'slugify';
 
 const InnerWrapper = styled.div`
   padding: 15px 0;
@@ -56,7 +57,7 @@ const Icon = styled.i`
 const Content = styled.main`
   display: flex;
   flex-direction: column;
-  ${({ theme }) => theme.mq.md} {
+  ${({ theme }) => theme.mq.lg} {
     flex-direction: row;
     align-items: center;
   }
@@ -65,12 +66,18 @@ const Content = styled.main`
 const InnerContent = styled.div`
   display: flex;
   flex-direction: column;
+  flex-basis: 55%;
   padding: 30px 0 0 0;
-  ${({ theme }) => theme.mq.md} {
-    padding: 0 0 0 30px;
-  }
   ${({ theme }) => theme.mq.lg} {
     padding: 0 0 0 60px;
+    & div:first-child {
+      margin-right: 40px;
+    }
+  }
+  ${({ theme }) => theme.mq.xl} {
+    & div:first-child {
+      margin-right: 60px;
+    }
   }
 `;
 
@@ -81,19 +88,6 @@ const Description = styled.div`
   ${({ theme }) => theme.mq.md} {
     flex-direction: row;
     justify-content: space-between;
-    & div:first-child {
-      margin-right: 15px;
-    }
-  }
-  ${({ theme }) => theme.mq.lg} {
-    & div:first-child {
-      margin-right: 40px;
-    }
-  }
-  ${({ theme }) => theme.mq.xl} {
-    & div:first-child {
-      margin-right: 60px;
-    }
   }
 `;
 
@@ -125,6 +119,8 @@ const Title = styled.h3`
 const Detail = styled.div`
   margin-bottom: 12px;
   line-height: 20px;
+  font-weight: ${({ theme }) => theme.semiBold};
+  font-family: ${({ theme }) => theme.fonts.subFont};
 `;
 
 const Value = styled.span`
@@ -244,9 +240,12 @@ const DetailedLayout = ({
             <Heading>Border Countries:</Heading>
             <Borders>
               {borders.length === 0 && `${name} doesn't have any neighbours`}
-              {borders.map(border => (
-                <StyledLink to={`/${border.id}`} key={border.id}>
-                  {border.name}
+              {borders.map(({ id, name: borderName }) => (
+                <StyledLink
+                  to={`/${slugify(borderName, { lower: true })}`}
+                  key={id}
+                >
+                  {borderName}
                 </StyledLink>
               ))}
             </Borders>
@@ -269,7 +268,7 @@ DetailedLayout.propTypes = {
 };
 
 export const query = graphql`
-query oneCountry($id: String!, $borders: [String]) {
+query oneCountry($id: String!, $borders: [String]!) {
   country: allInternalCountries(filter: { id: { eq: $id } }) {
       nodes {
         borders

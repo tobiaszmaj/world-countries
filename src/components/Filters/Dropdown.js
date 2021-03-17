@@ -24,6 +24,7 @@ const Select = styled.div`
   background-color: ${({ theme }) => theme.element};
   cursor: pointer;
   border: 2px solid;
+  transition: 0.3s;
   border-color: ${({ isActive, theme }) =>
     isActive ? theme.blue : 'transparent'};
 `;
