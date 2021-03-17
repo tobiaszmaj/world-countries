@@ -31,6 +31,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
+    overflow-y: scroll;
     color: ${({ theme }) => theme.text};
     background: ${({ theme }) => theme.background};
     font-family: ${({ theme }) => theme.fonts.mainFont};

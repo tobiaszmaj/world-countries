@@ -1,13 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import Layout from 'layouts/Layout';
 import PropTypes from 'prop-types';
 import { graphql, Link } from 'gatsby';
+import SEO from 'components/SEO/SEO';
 import backIcon from 'icons/back.svg';
 import useTheme from 'hooks/useTheme';
 import slugify from 'slugify';
-import { AnimatePresence, motion } from 'framer-motion';
-import useSiteURL from 'hooks/useSiteURL';
 
 const InnerWrapper = styled.div`
   padding: 15px 0;
@@ -172,10 +170,9 @@ const DetailedLayout = ({
     return stringifiedValues;
   };
 
-  const url = useSiteURL();
-
   return (
-    <Layout>
+    <>
+      <SEO title="Home" />
       <LinkWrapper>
         <LinkInnerWrapper>
           <StyledLink to="/">
@@ -184,92 +181,77 @@ const DetailedLayout = ({
           </StyledLink>
         </LinkInnerWrapper>
       </LinkWrapper>
-      <AnimatePresence exitBeforeEnter>
-        <motion.div
-          key={url}
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: 50 }}
-          transition={{ duration: 0.3 }}
-        >
-          <Content>
-            <ImageWrapper>
-              <Image src={flag} />
-            </ImageWrapper>
-            <InnerContent>
-              <Title>{name}</Title>
-              <Description>
-                <InnerWrapper>
-                  {nativeName && (
-                    <Detail>
-                      Native Name: <Value>{nativeName}</Value>
-                    </Detail>
-                  )}
-                  <Detail>
-                    Population:
-                    <Value>
-                      {population
-                        .toString()
-                        .replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}
-                    </Value>
-                  </Detail>
-                  {region && (
-                    <Detail>
-                      Region: <Value>{region}</Value>
-                    </Detail>
-                  )}
-                  {subregion && (
-                    <Detail>
-                      Sub Region: <Value>{subregion}</Value>
-                    </Detail>
-                  )}
-                  {capital && (
-                    <Detail>
-                      Capital: <Value>{capital}</Value>
-                    </Detail>
-                  )}
-                </InnerWrapper>
-                <InnerWrapper>
-                  {topLevelDomain[0] !== '' && (
-                    <Detail>
-                      Top Level Domain:
-                      <Value>{displayValues(topLevelDomain, null, true)}</Value>
-                    </Detail>
-                  )}
-                  {currencies.length !== 0 && (
-                    <Detail>
-                      Currencies:{' '}
-                      <Value>{displayValues(currencies, 'name')}</Value>
-                    </Detail>
-                  )}
-                  {languages.length !== 0 && (
-                    <Detail>
-                      Languages:{' '}
-                      <Value>{displayValues(languages, 'name')}</Value>
-                    </Detail>
-                  )}
-                </InnerWrapper>
-              </Description>
-              <StyledInnerWrapper>
-                <Heading>Border Countries:</Heading>
-                <Borders>
-                  {borders.length === 0 &&
-                    `${name} doesn't have any neighbours`}
-                  {borders.map(({ id, name: borderName }) => (
-                    <StyledLink
-                      to={`/${slugify(borderName, { lower: true })}`}
-                      key={id}
-                    >
-                      {borderName}
-                    </StyledLink>
-                  ))}
-                </Borders>
-              </StyledInnerWrapper>
-            </InnerContent>
-          </Content>
-        </motion.div>
-      </AnimatePresence>
-    </Layout>
+      <Content>
+        <ImageWrapper>
+          <Image src={flag} />
+        </ImageWrapper>
+        <InnerContent>
+          <Title>{name}</Title>
+          <Description>
+            <InnerWrapper>
+              {nativeName && (
+                <Detail>
+                  Native Name: <Value>{nativeName}</Value>
+                </Detail>
+              )}
+              <Detail>
+                Population:
+                <Value>
+                  {population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}
+                </Value>
+              </Detail>
+              {region && (
+                <Detail>
+                  Region: <Value>{region}</Value>
+                </Detail>
+              )}
+              {subregion && (
+                <Detail>
+                  Sub Region: <Value>{subregion}</Value>
+                </Detail>
+              )}
+              {capital && (
+                <Detail>
+                  Capital: <Value>{capital}</Value>
+                </Detail>
+              )}
+            </InnerWrapper>
+            <InnerWrapper>
+              {topLevelDomain[0] !== '' && (
+                <Detail>
+                  Top Level Domain:
+                  <Value>{displayValues(topLevelDomain, null, true)}</Value>
+                </Detail>
+              )}
+              {currencies.length !== 0 && (
+                <Detail>
+                  Currencies: <Value>{displayValues(currencies, 'name')}</Value>
+                </Detail>
+              )}
+              {languages.length !== 0 && (
+                <Detail>
+                  Languages: <Value>{displayValues(languages, 'name')}</Value>
+                </Detail>
+              )}
+            </InnerWrapper>
+          </Description>
+          <StyledInnerWrapper>
+            <Heading>Border Countries:</Heading>
+            <Borders>
+              {borders.length === 0 && `${name} doesn't have any neighbours`}
+              {borders.map(({ id, name: borderName }) => (
+                <StyledLink
+                  to={`/${slugify(borderName, { lower: true })}`}
+                  key={id}
+                >
+                  {borderName}
+                </StyledLink>
+              ))}
+            </Borders>
+          </StyledInnerWrapper>
+        </InnerContent>
+      </Content>
+    </>
   );
 };
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import styled from 'styled-components';
 import useTheme from 'hooks/useTheme';
@@ -6,10 +7,13 @@ import useTheme from 'hooks/useTheme';
 const Wrapper = styled.div`
   width: 100%;
   max-width: 320px;
-  height: 100%;
+  min-height: 380px;
   box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.25);
   background-color: ${({ theme }) => theme.element};
   border-radius: 8px;
+  transition: 0.3s;
+  opacity: ${({ visible }) => (visible ? '1' : '0')};
+  visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};
 `;
 
 const Content = styled.div`
@@ -30,10 +34,10 @@ const Overlay = styled.div`
   overflow: hidden;
 `;
 
-const SkeletonCard = () => {
+const SkeletonCard = ({ visible }) => {
     const { isDarkTheme } = useTheme();
     return (
-        <Wrapper>
+        <Wrapper visible={visible ? 1 : 0}>
             <SkeletonTheme
                 color={isDarkTheme ? '#495175' : '#e6e6e6'}
                 highlightColor={isDarkTheme ? '#545c85' : '#fff'}
@@ -58,6 +62,10 @@ const SkeletonCard = () => {
             </SkeletonTheme>
         </Wrapper>
     );
+};
+
+SkeletonCard.propTypes = {
+    visible: PropTypes.bool.isRequired,
 };
 
 export default SkeletonCard;

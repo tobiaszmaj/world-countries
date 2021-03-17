@@ -7,8 +7,8 @@ import slugify from 'slugify';
 const Wrapper = styled(Link)`
   display: block;
   width: 100%;
+  min-height: 380px;
   max-width: 320px;
-  height: 100%;
   border-radius: 8px;
   overflow: hidden;
   background-color: ${({ theme }) => theme.element};
@@ -56,19 +56,12 @@ const Value = styled.span`
   font-weight: ${({ theme }) => theme.light};
 `;
 
-const Card = ({
-  isVisible,
-  countryName,
-  population,
-  region,
-  capital,
-  flag,
-}) => {
+const Card = ({ visible, countryName, population, region, capital, flag }) => {
   const slugifiedName = slugify(countryName, {
     lower: true,
   });
   return (
-    <Wrapper visible={isVisible.toString()} to={`/${slugifiedName}`}>
+    <Wrapper visible={visible ? 1 : 0} to={`/${slugifiedName}`}>
       <ImageWrapper>
         <Image src={flag} alt={countryName} />
       </ImageWrapper>
@@ -96,7 +89,7 @@ const Card = ({
 };
 
 Card.propTypes = {
-  isVisible: PropTypes.bool.isRequired,
+  visible: PropTypes.bool.isRequired,
   countryName: PropTypes.string.isRequired,
   population: PropTypes.number.isRequired,
   region: PropTypes.string.isRequired,

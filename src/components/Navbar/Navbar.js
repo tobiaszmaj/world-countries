@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'gatsby';
 import styled from 'styled-components';
 import moonIcon from 'icons/moon.svg';
 import useTheme from 'hooks/useTheme';
@@ -32,9 +33,11 @@ const InnerWrapper = styled.div`
   }
 `;
 
-const TitleWrapper = styled.div`
+const TitleWrapper = styled(Link)`
   display: flex;
   align-items: center;
+  color: ${({ theme }) => theme.text};
+  text-decoration: none;
 `;
 
 const Title = styled.h1`
@@ -90,7 +93,7 @@ const Navbar = () => {
   return (
     <Wrapper>
       <InnerWrapper>
-        <TitleWrapper>
+        <TitleWrapper to="/">
           <Title>World countries</Title>
         </TitleWrapper>
         <DarkModeButton onClick={toggleTheme}>
