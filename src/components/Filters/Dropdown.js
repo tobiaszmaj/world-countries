@@ -1,8 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import dropIcon from 'icons/arrow-down.svg';
-import useTheme from 'hooks/useTheme';
+import { ThemeContext } from 'contexts/ThemeContext';
 import useOutsideClick from 'hooks/useOutsideClick';
 
 const Wrapper = styled.div`
@@ -69,7 +69,7 @@ const Option = styled.li`
 const Dropdown = ({ regions, handleSelect, selectedRegion }) => {
   const [areOptionsVisible, setOptionsVisibility] = useState(false);
 
-  const { isDarkTheme } = useTheme();
+  const { isDarkTheme } = useContext(ThemeContext);
   const selectRef = useRef(null);
   const optionsRef = useRef(null);
 

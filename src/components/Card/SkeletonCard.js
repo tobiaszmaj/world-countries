@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import styled from 'styled-components';
-import useTheme from 'hooks/useTheme';
+import { ThemeContext } from 'contexts/ThemeContext';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -35,7 +35,8 @@ const Overlay = styled.div`
 `;
 
 const SkeletonCard = ({ visible }) => {
-    const { isDarkTheme } = useTheme();
+    const { isDarkTheme } = useContext(ThemeContext);
+
     return (
         <Wrapper visible={visible ? 1 : 0}>
             <SkeletonTheme

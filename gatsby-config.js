@@ -45,24 +45,14 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-plugin-react-redux`,
-      options: {
-        pathToCreateStoreModule: './src/redux/store',
-        cleanupOnClient: true,
-      },
-    },
-    {
       resolve: 'gatsby-plugin-root-import',
       options: {
         components: path.join(__dirname, 'src/components'),
         layouts: path.join(__dirname, 'src/layouts'),
         theme: path.join(__dirname, 'src/theme'),
         hooks: path.join(__dirname, 'src/hooks'),
-        store: path.join(__dirname, 'src/redux/store'),
-        actions: path.join(__dirname, 'src/redux/actions'),
-        reducer: path.join(__dirname, 'src/redux/reducer'),
+        contexts: path.join(__dirname, 'src/contexts'),
         icons: path.join(__dirname, 'src/assets/icons'),
-        images: path.join(__dirname, 'src/assets/images'),
       },
     },
   ],

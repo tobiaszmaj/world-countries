@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import searchIcon from 'icons/search.svg';
 import searchWhiteIcon from 'icons/search-white.svg';
-import useTheme from 'hooks/useTheme';
+import { ThemeContext } from 'contexts/ThemeContext';
 
 const Input = styled.input`
   padding: 18px 40px 18px 60px;
@@ -34,7 +34,7 @@ const Input = styled.input`
 
 const SearchInput = ({ handleInput }) => {
   const [inputValue, setInputValue] = useState('');
-  const { isDarkTheme } = useTheme();
+  const { isDarkTheme } = useContext(ThemeContext);
 
   const handleInputChange = e => {
     setInputValue(e.target.value);

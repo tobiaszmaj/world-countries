@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { graphql, Link } from 'gatsby';
 import SEO from 'components/SEO/SEO';
 import backIcon from 'icons/back.svg';
-import useTheme from 'hooks/useTheme';
+import { ThemeContext } from 'contexts/ThemeContext';
 import slugify from 'slugify';
 
 const InnerWrapper = styled.div`
@@ -146,7 +146,7 @@ const DetailedLayout = ({
     borderCountries: { nodes: borders },
   },
 }) => {
-  const { isDarkTheme } = useTheme();
+  const { isDarkTheme } = useContext(ThemeContext);
   const {
     name,
     capital,
@@ -172,7 +172,7 @@ const DetailedLayout = ({
 
   return (
     <>
-      <SEO title="Home" />
+      <SEO title={`${name} | World countries`} />
       <LinkWrapper>
         <LinkInnerWrapper>
           <StyledLink to="/">

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'gatsby';
 import styled from 'styled-components';
 import moonIcon from 'icons/moon.svg';
-import useTheme from 'hooks/useTheme';
+import { ThemeContext } from 'contexts/ThemeContext';
 
 const Wrapper = styled.nav`
   position: fixed;
@@ -89,7 +89,8 @@ font-size: ${({ theme }) => theme.fontSize.s};
 `;
 
 const Navbar = () => {
-  const { isDarkTheme, toggleTheme } = useTheme();
+  const { isDarkTheme, toggleTheme } = useContext(ThemeContext);
+
   return (
     <Wrapper>
       <InnerWrapper>
