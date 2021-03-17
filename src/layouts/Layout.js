@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyle from 'theme/GlobalStyle';
 import Navbar from 'components/Navbar/Navbar';
+import ReturnToTop from 'components/ReturnToTop/ReturnToTop';
 import useTheme from 'hooks/useTheme';
 
 const Wrapper = styled.div`
@@ -22,6 +23,7 @@ const Layout = ({ children }) => {
       <GlobalStyle />
       <Navbar />
       <Wrapper>{children}</Wrapper>
+      <ReturnToTop />
     </ThemeProvider>
   );
 };

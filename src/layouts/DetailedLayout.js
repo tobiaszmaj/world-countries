@@ -9,6 +9,7 @@ import slugify from 'slugify';
 
 const InnerWrapper = styled.div`
   padding: 15px 0;
+  max-width: 360px;
 `;
 
 const LinkWrapper = styled.div`
@@ -70,24 +71,17 @@ const InnerContent = styled.div`
   padding: 30px 0 0 0;
   ${({ theme }) => theme.mq.lg} {
     padding: 0 0 0 60px;
-    & div:first-child {
-      margin-right: 40px;
-    }
-  }
-  ${({ theme }) => theme.mq.xl} {
-    & div:first-child {
-      margin-right: 60px;
-    }
   }
 `;
 
 const Description = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 600px;
+  & div:first-child {
+    margin-right: 40px;
+  }
   ${({ theme }) => theme.mq.md} {
     flex-direction: row;
-    justify-content: space-between;
   }
 `;
 
@@ -96,8 +90,6 @@ flex-basis: 45%;
   overflow: hidden;
   border-radius: 4px;
   box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.25);
-  min-width: 280px;
-  max-width: 700px;
 `;
 
 const Image = styled.img`
@@ -117,6 +109,7 @@ const Title = styled.h3`
 `;
 
 const Detail = styled.div`
+display: flex;
   margin-bottom: 12px;
   line-height: 20px;
   font-weight: ${({ theme }) => theme.semiBold};
@@ -124,11 +117,16 @@ const Detail = styled.div`
 `;
 
 const Value = styled.span`
+margin-left: 5px;
   font-weight: ${({ theme }) => theme.light};
 `;
 
 const Heading = styled.h2`
   font-size: ${({ theme }) => theme.fontSize.lg};
+`;
+
+const StyledInnerWrapper = styled(InnerWrapper)`
+  max-width: 100%;
 `;
 
 const Borders = styled.div`
@@ -218,7 +216,7 @@ const DetailedLayout = ({
               )}
             </InnerWrapper>
             <InnerWrapper>
-              {topLevelDomain && (
+              {topLevelDomain[0] !== '' && (
                 <Detail>
                   Top Level Domain:{' '}
                   <Value>{displayValues(topLevelDomain, null, true)}</Value>
@@ -236,7 +234,7 @@ const DetailedLayout = ({
               )}
             </InnerWrapper>
           </Description>
-          <InnerWrapper>
+          <StyledInnerWrapper>
             <Heading>Border Countries:</Heading>
             <Borders>
               {borders.length === 0 && `${name} doesn't have any neighbours`}
@@ -249,7 +247,7 @@ const DetailedLayout = ({
                 </StyledLink>
               ))}
             </Borders>
-          </InnerWrapper>
+          </StyledInnerWrapper>
         </InnerContent>
       </Content>
     </Layout>
