@@ -1,6 +1,6 @@
 # World countries
 
-World countries made with Gatsby for a challenge by Frontend Mentor.
+World countries app made with Gatsby for a challenge by Frontend Mentor.
 
 ![desktop-view](preview.png)
 
