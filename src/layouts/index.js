@@ -7,7 +7,7 @@ import ReturnToTop from 'components/ReturnToTop/ReturnToTop';
 import { motion, AnimatePresence } from 'framer-motion';
 import ThemeProvider from 'contexts/ThemeContext';
 import FiltersProvider from 'contexts/FiltersContext/FiltersContext';
-import { useStaticQuery, graphql } from 'gatsby';
+import usePathname from 'hooks/usePathname';
 
 const Wrapper = styled.div`
   margin: 0 auto;
@@ -41,31 +41,17 @@ const variants = {
 };
 
 const Layout = ({ children }) => {
-  const queryCountries = graphql`
-    query allCountries {
-      allCountries(filter: { name: { ne: null } }) {
-        nodes {
-          name
-          capital
-          flag
-          region
-          population
-        }
-      }
-    }
-  `;
+  const pathname = usePathname();
 
-  const data = useStaticQuery(queryCountries);
-  console.log(data);
   return (
     <ThemeProvider>
-      <FiltersProvider nodes={data.allCountries.nodes}>
+      <FiltersProvider>
         <GlobalStyle />
         <Navbar />
         <Wrapper>
           <AnimatePresence>
             <motion.div
-              // key={location.pathname}
+              key={pathname}
               variants={variants}
               initial="initial"
               animate="enter"
@@ -82,9 +68,6 @@ const Layout = ({ children }) => {
 };
 
 Layout.propTypes = {
-  // location: PropTypes.objectOf(
-  //   PropTypes.oneOfType([PropTypes.string, PropTypes.object])
-  // ).isRequired,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
