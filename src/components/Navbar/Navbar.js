@@ -3,7 +3,6 @@ import { Link } from 'gatsby';
 import styled from 'styled-components';
 import moonIcon from 'icons/moon.svg';
 import { ThemeContext } from 'contexts/ThemeContext';
-import { FiltersContext } from 'contexts/FiltersContext/FiltersContext';
 
 const Wrapper = styled.nav`
   position: fixed;
@@ -42,7 +41,7 @@ const TitleWrapper = styled(Link)`
 `;
 
 const Title = styled.h1`
-font-size: ${({ theme }) => theme.fontSize.m};
+  font-size: ${({ theme }) => theme.fontSize.m};
   font-weight: ${({ theme }) => theme.bold};
   font-family: ${({ theme }) => theme.fonts.subFont};
   ${({ theme }) => theme.mq.xs} {
@@ -80,7 +79,7 @@ const Icon = styled.i`
 `;
 
 const Name = styled.h3`
-font-size: ${({ theme }) => theme.fontSize.s};
+  font-size: ${({ theme }) => theme.fontSize.s};
   font-weight: ${({ theme }) => theme.semiBold};
   font-family: ${({ theme }) => theme.fonts.mainFont};
   margin-left: 8px;
@@ -91,12 +90,11 @@ font-size: ${({ theme }) => theme.fontSize.s};
 
 const Navbar = () => {
   const { isDarkTheme, toggleTheme } = useContext(ThemeContext);
-  const { clearFilters } = useContext(FiltersContext);
 
   return (
     <Wrapper>
       <InnerWrapper>
-        <TitleWrapper onClick={clearFilters} to="/">
+        <TitleWrapper to="/">
           <Title>World countries</Title>
         </TitleWrapper>
         <DarkModeButton onClick={toggleTheme}>
