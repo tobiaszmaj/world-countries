@@ -7,7 +7,6 @@ import ReturnToTop from 'components/ReturnToTop/ReturnToTop';
 import { motion, AnimatePresence } from 'framer-motion';
 import ThemeProvider from 'contexts/ThemeContext';
 import FiltersProvider from 'contexts/FiltersContext/FiltersContext';
-import usePathname from 'hooks/usePathname';
 import { useStaticQuery, graphql } from 'gatsby';
 
 const Wrapper = styled.div`
@@ -41,8 +40,7 @@ const variants = {
   },
 };
 
-const Layout = ({ children }) => {
-  const pathname = usePathname();
+const Layout = ({ children, location }) => {
   const data = useStaticQuery(graphql`
     {
       allCountries(filter: { name: { ne: null } }) {
@@ -65,7 +63,7 @@ const Layout = ({ children }) => {
         <Wrapper>
           <AnimatePresence>
             <motion.div
-              key={pathname}
+              key={location.pathname}
               variants={variants}
               initial="initial"
               animate="enter"
@@ -82,6 +80,9 @@ const Layout = ({ children }) => {
 };
 
 Layout.propTypes = {
+  location: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.object])
+  ).isRequired,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
