@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import ThemeProvider from 'contexts/ThemeContext';
 import FiltersProvider from 'contexts/FiltersContext/FiltersContext';
 import usePathname from 'hooks/usePathname';
+import { useStaticQuery, graphql } from 'gatsby';
 
 const Wrapper = styled.div`
   margin: 0 auto;
@@ -42,10 +43,23 @@ const variants = {
 
 const Layout = ({ children }) => {
   const pathname = usePathname();
+  const data = useStaticQuery(graphql`
+    {
+      allCountries(filter: { name: { ne: null } }) {
+        nodes {
+          name
+          capital
+          flag
+          region
+          population
+        }
+      }
+    }
+  `);
 
   return (
     <ThemeProvider>
-      <FiltersProvider>
+      <FiltersProvider nodes={data.allCountries.nodes}>
         <GlobalStyle />
         <Navbar />
         <Wrapper>

@@ -16,7 +16,6 @@ const FiltersProvider = ({ children, nodes }) => {
       .filter(region => region)
       .sort();
     const regions = ['All', ...[...new Set(allRegions)]];
-
     dispatch({ type: 'SET_REGIONS', payload: regions });
   }, []);
 

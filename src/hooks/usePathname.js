@@ -1,16 +1,14 @@
-import { useStaticQuery, graphql } from 'gatsby';
+import { useState, useEffect } from 'react';
 
 const usePathname = () => {
-  const { sitePage } = useStaticQuery(
-    graphql`
-      query SocialUsernames {
-        sitePage {
-          path
-        }
-      }
-    `
-  );
-  return sitePage.path;
+  const [pathname, setPathname] = useState('');
+
+  useEffect(() => {
+    setPathname(window.location.pathname);
+  }, [window.location.pathname]);
+
+  console.log(pathname);
+  return pathname;
 };
 
 export default usePathname;
