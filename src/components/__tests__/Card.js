@@ -1,40 +1,55 @@
 import React from 'react';
-import { render, waitForElement } from '@testing-library/react';
-import ThemeProvider from '../../contexts/ThemeContext';
+import { render } from '../../../tests/test-utils';
 import Card from '../Card/Card';
 
-const renderComponent = ({
-  countryName,
-  visible,
-  region,
-  capital,
-  flag,
-  population,
-}) =>
+const renderCard = () =>
   render(
-    <ThemeProvider>
-      <Card
-        visible={visible}
-        region={region}
-        countryName={countryName}
-        capital={capital}
-        flag={flag}
-        population={population}
-      />
-    </ThemeProvider>
+    <Card
+      visible
+      region="SomeRegion"
+      countryName="SomeCountry"
+      capital="SomeCapital"
+      flag="someflag.svg"
+      population={123456789}
+    />
   );
 
 describe('Card', () => {
-  it('renders greeting', async () => {
-    const { getByText } = renderComponent({
-      visible: true,
-      region: 'Europe',
-      countryName: 'Poland',
-      capital: 'Warsaw',
-      flag: 'flag',
-      population: 123,
+  describe('Renders with proper props', () => {
+    it('Country name', () => {
+      const { getByText } = renderCard();
+
+      expect(getByText('SomeCountry')).toBeInTheDocument();
     });
 
-    await waitForElement(() => getByText(/population/i));
+    it('Image', () => {
+      const { container } = renderCard();
+
+      const image = container.querySelector('img');
+      expect(image).toBeInTheDocument();
+      expect(image).toHaveAttribute('src', 'someflag.svg');
+      expect(image).toHaveAttribute('alt', 'SomeCountry');
+    });
+
+    it('Region', () => {
+      const { getByText } = renderCard();
+
+      expect(getByText(/region:/i)).toBeInTheDocument();
+      expect(getByText('SomeRegion')).toBeInTheDocument();
+    });
+
+    it('Capital', () => {
+      const { getByText } = renderCard();
+
+      expect(getByText(/capital:/i)).toBeInTheDocument();
+      expect(getByText('SomeCapital')).toBeInTheDocument();
+    });
+
+    it('Population', () => {
+      const { getByText } = renderCard();
+
+      expect(getByText(/population:/i)).toBeInTheDocument();
+      expect(getByText('123 456 789')).toBeInTheDocument();
+    });
   });
 });
