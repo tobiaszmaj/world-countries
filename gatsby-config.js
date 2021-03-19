@@ -1,5 +1,3 @@
-const path = require('path');
-
 module.exports = {
   siteMetadata: {
     title: `World countries`,
@@ -44,18 +42,6 @@ module.exports = {
         short_name: `starter`,
         start_url: `/`,
         icon: `src/assets/images/favicon.png`,
-      },
-    },
-    {
-      resolve: 'gatsby-plugin-root-import',
-      options: {
-        components: path.join(__dirname, 'src/components'),
-        layouts: path.join(__dirname, 'src/layouts'),
-        theme: path.join(__dirname, 'src/theme'),
-        hooks: path.join(__dirname, 'src/hooks'),
-        contexts: path.join(__dirname, 'src/contexts'),
-        icons: path.join(__dirname, 'src/assets/icons'),
-        images: path.join(__dirname, 'src/assets/images'),
       },
     },
   ],

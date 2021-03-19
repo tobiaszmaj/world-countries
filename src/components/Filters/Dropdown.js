@@ -1,6 +1,6 @@
 import React, { useState, useRef, useContext } from 'react';
 import styled from 'styled-components';
-import dropIcon from 'icons/arrow-down.svg';
+import dropIcon from 'assets/icons/arrow-down.svg';
 import { ThemeContext } from 'contexts/ThemeContext';
 import useOutsideClick from 'hooks/useOutsideClick';
 import { FiltersContext } from 'contexts/FiltersContext/FiltersContext';

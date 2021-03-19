@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { graphql, Link } from 'gatsby';
 import SEO from 'components/SEO/SEO';
-import backIcon from 'icons/back.svg';
+import backIcon from 'assets/icons/back.svg';
 import { ThemeContext } from 'contexts/ThemeContext';
 import slugify from 'slugify';
 
@@ -86,14 +86,14 @@ const Description = styled.div`
 `;
 
 const ImageWrapper = styled.div`
-flex-basis: 45%;
+  flex-basis: 45%;
   overflow: hidden;
   border-radius: 4px;
   box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.25);
 `;
 
 const Image = styled.img`
-display: block;
+  display: block;
   width: 100%;
   height: 100%;
 `;
@@ -109,7 +109,7 @@ const Title = styled.h3`
 `;
 
 const Detail = styled.div`
-display: flex;
+  display: flex;
   margin-bottom: 12px;
   line-height: 20px;
   font-weight: ${({ theme }) => theme.semiBold};
@@ -117,7 +117,7 @@ display: flex;
 `;
 
 const Value = styled.span`
-margin-left: 5px;
+  margin-left: 5px;
   font-weight: ${({ theme }) => theme.light};
 `;
 
@@ -267,8 +267,8 @@ DetailedLayout.propTypes = {
 };
 
 export const query = graphql`
-query oneCountry($id: String!, $borders: [String]!) {
-  country: allCountries(filter: { id: { eq: $id } }) {
+  query oneCountry($id: String!, $borders: [String]!) {
+    country: allCountries(filter: { id: { eq: $id } }) {
       nodes {
         borders
         id

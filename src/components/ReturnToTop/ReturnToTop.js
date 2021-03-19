@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import arrowIcon from 'icons/arrow-up.svg';
+import arrowIcon from 'assets/icons/arrow-up.svg';
 import { ThemeContext } from 'contexts/ThemeContext';
 import useWindowOffset from 'hooks/useWindowOffset';
 import { animateScroll as scroll } from 'react-scroll';

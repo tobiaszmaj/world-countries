@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import emptyStateImg from 'images/emptyState.png';
+import emptyStateImg from 'assets/images/emptyState.png';
 import { ThemeContext } from 'contexts/ThemeContext';
 
 const Wrapper = styled.div`

@@ -1,6 +1,14 @@
 const path = require(`path`);
 const slugify = require('slugify');
 
+exports.onCreateWebpackConfig = ({ actions }) => {
+  actions.setWebpackConfig({
+    resolve: {
+      modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+    },
+  });
+};
+
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
   const DetailedTemplate = path.resolve(`./src/layouts/DetailedLayout.js`);

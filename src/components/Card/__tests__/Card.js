@@ -1,6 +1,6 @@
 import React from 'react';
-import { render } from '../../../tests/test-utils';
-import Card from '../Card/Card';
+import { render } from '../../../../tests/test-utils';
+import Card from '../Card';
 
 const renderCard = () =>
   render(

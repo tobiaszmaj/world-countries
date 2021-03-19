@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled, { css } from 'styled-components';
-import searchIcon from 'icons/search.svg';
-import searchWhiteIcon from 'icons/search-white.svg';
+import searchIcon from 'assets/icons/search.svg';
+import searchWhiteIcon from 'assets/icons/search-white.svg';
 import { ThemeContext } from 'contexts/ThemeContext';
 import { FiltersContext } from 'contexts/FiltersContext/FiltersContext';
 
