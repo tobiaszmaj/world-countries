@@ -13,6 +13,7 @@ Check out the demo! -
 - Gatsby: v2.24.10,
 - React v16.13.1
 - React Hooks
+- React Testing Library
 - GraphQL,
 - Framer Motion
 - Styled Components
