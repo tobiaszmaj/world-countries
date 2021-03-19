@@ -18,6 +18,13 @@
     "no-return-assign": 0,
     "import/no-unresolved": 0,
     "react/no-array-index-key": 0,
+    "no-underscore-dangle": 0,
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true
+      }
+    ],
     "react/jsx-filename-extension": [
       1,
       {
