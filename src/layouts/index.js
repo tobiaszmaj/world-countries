@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { useStaticQuery, graphql } from 'gatsby';
 import GlobalStyle from 'theme/GlobalStyle';
 import Navbar from 'components/Navbar/Navbar';
 import ReturnToTop from 'components/ReturnToTop/ReturnToTop';
 import { motion, AnimatePresence } from 'framer-motion';
 import ThemeProvider from 'contexts/ThemeContext';
 import FiltersProvider from 'contexts/FiltersContext/FiltersContext';
-import { useStaticQuery, graphql } from 'gatsby';
+import useMedia from 'hooks/useMedia';
 
 const Wrapper = styled.div`
   margin: 0 auto;
@@ -22,11 +23,9 @@ const Wrapper = styled.div`
 const variants = {
   initial: {
     opacity: 0,
-    x: -50,
   },
   enter: {
     opacity: 1,
-    x: 0,
     transition: {
       duration: 0.3,
       delay: 0.3,
@@ -35,12 +34,27 @@ const variants = {
   },
   exit: {
     opacity: 0,
-    x: 50,
     transition: { duration: 0.3 },
   },
 };
 
+const withTranslateX = {
+  initial: {
+    ...variants.initial,
+    x: -50,
+  },
+  enter: {
+    ...variants.enter,
+    x: 0,
+  },
+  exit: {
+    ...variants.exit,
+    x: 50,
+  },
+};
+
 const Layout = ({ children, location }) => {
+  const matches = useMedia('(min-width: 768px)');
   const data = useStaticQuery(graphql`
     {
       allCountries(filter: { name: { ne: null } }) {
@@ -64,7 +78,7 @@ const Layout = ({ children, location }) => {
           <AnimatePresence>
             <motion.div
               key={location.pathname}
-              variants={variants}
+              variants={matches ? withTranslateX : variants}
               initial="initial"
               animate="enter"
               exit="exit"
