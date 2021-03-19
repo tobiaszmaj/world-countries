@@ -1,6 +1,6 @@
 # World countries
 
-World countries app made with Gatsby for a challenge by Frontend Mentor.
+World countries app made with Gatsby.
 
 ![desktop-view](preview.png)
 
@@ -34,7 +34,3 @@ Users are be able to:
 - Maintain selected theme after refreshing the browser
 - View detailed information about particular country in another page
 - Filter countries by their name and region
-
-## Credits and sources
-
-This is a challenge by www.frontendmentor.io. I got all of the icons and designs from the website. I tried my best to get as close as possible to the designs.

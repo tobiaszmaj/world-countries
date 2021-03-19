@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "world-countries",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "World countries app made with Gatsby",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Tobiasz Maj",
   "dependencies": {
     "babel-plugin-styled-components": "^1.10.7",
     "framer-motion": "^2.1.2",
@@ -80,7 +80,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
+    "url": ""
   },
   "bugs": {
     "url": "https://github.com/gatsbyjs/gatsby/issues"
