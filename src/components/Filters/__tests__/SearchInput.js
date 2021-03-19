@@ -1,6 +1,6 @@
 import React from 'react';
 import SearchInput from 'components/Filters/SearchInput';
-import { render } from 'tests/test-utils';
+import { render, fireEvent } from 'tests/test-utils';
 
 describe('Search input', () => {
   const { getByPlaceholderText } = render(<SearchInput />);
@@ -8,5 +8,10 @@ describe('Search input', () => {
 
   it('renders properly', () => {
     expect(input).toBeInTheDocument();
+  });
+
+  it('displays proper values', () => {
+    fireEvent.change(input, { target: { value: 'country' } });
+    expect(input.value).toBe('country');
   });
 });
