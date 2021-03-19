@@ -39,7 +39,8 @@
       "node": {
         "moduleDirectory": [
           "node_modules",
-          "src/"
+          "src/",
+          "tests"
         ]
       }
     }

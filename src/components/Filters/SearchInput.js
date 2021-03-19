@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled, { css } from 'styled-components';
-import searchIcon from 'assets/icons/search.svg';
-import searchWhiteIcon from 'assets/icons/search-white.svg';
 import { ThemeContext } from 'contexts/ThemeContext';
 import { FiltersContext } from 'contexts/FiltersContext/FiltersContext';
+import searchIcon from '../../assets/icons/search.svg';
+import searchWhiteIcon from '../../assets/icons/search-white.svg';
 
 const Input = styled.input`
   padding: 18px 40px 18px 60px;

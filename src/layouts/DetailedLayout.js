@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { graphql, Link } from 'gatsby';
 import SEO from 'components/SEO/SEO';
-import backIcon from 'assets/icons/back.svg';
 import { ThemeContext } from 'contexts/ThemeContext';
 import slugify from 'slugify';
+import backIcon from '../assets/icons/back.svg';
 
 const InnerWrapper = styled.div`
   padding: 15px 0;

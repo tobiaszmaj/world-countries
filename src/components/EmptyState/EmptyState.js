@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import emptyStateImg from 'assets/images/emptyState.png';
 import { ThemeContext } from 'contexts/ThemeContext';
+import emptyStateImg from '../../assets/images/emptyState.png';
 
 const Wrapper = styled.div`
   width: 100%;

@@ -1,9 +1,9 @@
 import React, { useState, useRef, useContext } from 'react';
 import styled from 'styled-components';
-import dropIcon from 'assets/icons/arrow-down.svg';
 import { ThemeContext } from 'contexts/ThemeContext';
 import useOutsideClick from 'hooks/useOutsideClick';
 import { FiltersContext } from 'contexts/FiltersContext/FiltersContext';
+import dropIcon from '../../assets/icons/arrow-down.svg';
 
 const Wrapper = styled.div`
   position: relative;

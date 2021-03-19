@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { Link } from 'gatsby';
 import styled from 'styled-components';
-import moonIcon from 'assets/icons/moon.svg';
 import { ThemeContext } from 'contexts/ThemeContext';
+import moonIcon from '../../assets/icons/moon.svg';
 
 const Wrapper = styled.nav`
   position: fixed;

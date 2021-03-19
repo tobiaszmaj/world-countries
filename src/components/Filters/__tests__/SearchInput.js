@@ -1,12 +1,12 @@
 import React from 'react';
-import { render } from '../../../../tests/test-utils';
-import SearchInput from '../SearchInput';
+import SearchInput from 'components/Filters/SearchInput';
+import { render } from 'tests/test-utils';
 
 describe('Search input', () => {
-  it('renders properly', () => {
-    const { getByPlaceholderText } = render(<SearchInput />);
-    const input = getByPlaceholderText(/search for a country/i);
+  const { getByPlaceholderText } = render(<SearchInput />);
+  const input = getByPlaceholderText(/search for a country/i);
 
+  it('renders properly', () => {
     expect(input).toBeInTheDocument();
   });
 });
