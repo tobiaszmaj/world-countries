@@ -2,27 +2,19 @@
 
 World countries app made with Gatsby.
 
-![desktop-view](preview.png)
+![desktop-view](preview.gif)
 
 ## Demo
 
-Check out the demo! - 
+Check out the demo! - [LINK](https://tobiaszmaj.github.io/world-countries/)
 
 ## Technologies
 
-- Gatsby: v2.24.10,
-- React v16.13.1
-- React Hooks
-- React Testing Library
-- GraphQL,
-- Framer Motion
-- Styled Components
-- Local Storage
-- Slugify
-- React Scroll
-- React Loading Skeleton
-- React Infinite Scroll Component
-- Husky & lint-staged
+* [Gatsby](https://www.gatsbyjs.com/)
+* [React with Hooks](https://reactjs.org/)
+* [Framer Motion](https://www.framer.com/motion/)
+* [styled-components](https://styled-components.com/)
+* [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
 
 ## Features
 

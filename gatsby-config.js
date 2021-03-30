@@ -1,4 +1,5 @@
 module.exports = {
+  pathPrefix: '/world-countries',
   siteMetadata: {
     title: `World countries`,
     description: `The app that allows user to find each country interesting statistics and information`,
